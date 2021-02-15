@@ -45,8 +45,8 @@ class SearchViewController: UIViewController {
         self.arrowImage.frame.origin = CGPoint(x: self.tableView.frame.origin.x, y: 150)
         self.arrowImage.contentMode = .redraw
         self.arrowImage.isHidden = false
-         
         self.tableView.isHidden = true
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

@@ -22,14 +22,13 @@ class AvatarImageViewController: UIViewController, StoryboardInitializable {
         self.imageScrollView = ImageScrollView(frame: self.view.bounds)
         self.view.addSubview(imageScrollView!)
         self.setupImageScrollView()
-        
 
-        
         if let avatarUrl = URL(string: avatarRepositoryModel?.owner.avatarUrl ?? "") {
             imageAvatar.kf.indicatorType = .activity
             imageAvatar.kf.setImage(with: avatarUrl)
         }
         imageScrollView?.set(image: imageAvatar.image ?? UIImage())
+        self.title = avatarRepositoryModel?.fullName
     }
     
     private func setupImageScrollView() {

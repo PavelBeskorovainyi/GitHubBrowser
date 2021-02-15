@@ -23,6 +23,10 @@ class DetailViewController: UIViewController {
             readmeList.append(basicUrl + ".md")
             readmeList.append(basicUrl + ".markdown")
             readmeList.append(basicUrl + ".txt")
+            readmeList.append(basicUrl + ".doc")
+            readmeList.append(basicUrl + ".me")
+            readmeList.append(basicUrl + ".md")
+            
         }
         return readmeList
     }

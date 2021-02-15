@@ -53,31 +53,36 @@ class DetailViewController: UIViewController {
                     if let httpResponse = response as? HTTPURLResponse {
                         if httpResponse.statusCode != 404 {
                             let readmeContent = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)! as String
+                            if readmeContent.isEmpty {
+                                let text = "NO TEXT FOUND"
+                                completion(text)
+                            } else {
                                 completion(readmeContent)
+                               }
+                            }
                         }
-                    }
-                }.resume()
+                    }.resume()
+                }
             }
         }
+        
+        @objc private func addToFavorites() {
+            if let repositoryModel = repositoryModel {
+                Notification.Name.created.post(center: NotificationCenter.default, object: nil, userInfo: ["repositoryModel":repositoryModel])
+            }
+        }
+        
+        @objc private func openSafari() {
+            guard let fullName = self.repositoryModel?.fullName, let url = URL(string: "https://github.com/\(fullName)") else {return}
+            let vc = SFSafariViewController(url: url)
+            vc.delegate = self
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+        
     }
     
-    @objc private func addToFavorites() {
-        if let repositoryModel = repositoryModel {
-            Notification.Name.created.post(center: NotificationCenter.default, object: nil, userInfo: ["repositoryModel":repositoryModel])
+    extension DetailViewController: SFSafariViewControllerDelegate {
+        func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
+            self.navigationController?.popViewController(animated: true)
         }
     }
-    
-    @objc private func openSafari() {
-        guard let fullName = self.repositoryModel?.fullName, let url = URL(string: "https://github.com/\(fullName)") else {return}
-        let vc = SFSafariViewController(url: url)
-        vc.delegate = self
-        self.navigationController?.pushViewController(vc, animated: true)
-    }
-    
-}
-
-extension DetailViewController: SFSafariViewControllerDelegate {
-    func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
-        self.navigationController?.popViewController(animated: true)
-    }
-}

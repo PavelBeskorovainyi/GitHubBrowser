@@ -29,6 +29,10 @@ class AvatarImageViewController: UIViewController, StoryboardInitializable {
         }
         imageScrollView?.set(image: imageAvatar.image ?? UIImage())
         self.title = avatarRepositoryModel?.fullName
+        self.imageScrollView?.zoom(to: CGRect(origin: CGPoint(
+                                                x: self.imageScrollView!.contentSize.width / 2 - self.view.frame.size.width / 2,
+                                                y: self.imageScrollView!.contentSize.height / 2 - self.view.frame.size.height / 2),
+                                              size: CGSize(width: 200, height: 200)), animated: false)
     }
     
     private func setupImageScrollView() {
@@ -38,5 +42,6 @@ class AvatarImageViewController: UIViewController, StoryboardInitializable {
         imageScrollView?.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 0).isActive = true
         imageScrollView?.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0).isActive = true
         imageScrollView?.contentOffset = self.view.center
+        imageScrollView?.center = self.view.center
     }
 }

@@ -17,7 +17,7 @@ class ImageScrollView: UIScrollView, UIScrollViewDelegate {
       self.showsVerticalScrollIndicator = false
       self.showsHorizontalScrollIndicator = false
       self.delegate = self
-
+      
     }
     
     required init?(coder: NSCoder) {
@@ -30,7 +30,7 @@ class ImageScrollView: UIScrollView, UIScrollViewDelegate {
       imageView = UIImageView(image: image)
       self.addSubview(imageView)
       configurateFor(imageSize: image.size)
-
+      
         
       self.minimumZoomScale = 0.1
       self.maximumZoomScale = 2
@@ -43,6 +43,8 @@ class ImageScrollView: UIScrollView, UIScrollViewDelegate {
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
       return imageView
     }
+  
+    
     
     func scrollViewDidZoom(_ scrollView: UIScrollView) {
         let subview = scrollView.subviews.first

@@ -122,9 +122,7 @@
                             <constraint firstItem="U1H-9F-gfR" firstAttribute="trailing" secondItem="G71-h8-7zN" secondAttribute="trailing" id="xmz-01-ojA"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Featured" id="NJe-IP-ZT8">
-                        <barButtonItem key="rightBarButtonItem" title="Edit" id="UW9-bV-clt"/>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Featured" id="NJe-IP-ZT8"/>
                     <connections>
                         <outlet property="tableView" destination="G71-h8-7zN" id="9o6-Cm-aXh"/>
                         <segue destination="reV-Lb-nDf" kind="show" identifier="showDetail" id="Do0-OK-qB3"/>

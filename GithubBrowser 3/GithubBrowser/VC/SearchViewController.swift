@@ -82,10 +82,20 @@ class SearchViewController: UIViewController {
                             self.arrowImage.isHidden = true
                         }
                     }
+                } else {
+                        self.repositoryDataSourse.removeAll()
+                    DispatchQueue.main.async {
+                        self.activityIndicator.isHidden = true
+                        self.activityIndicator.stopAnimating()
+                        self.noResultImageView.isHidden = false
+                        self.tableView.isHidden = true
+                        self.arrowImage.isHidden = true
+                    }
+                }
                 }
             }
         }
-    }
+    
     @objc public func presentImage(_ tap: UITapGestureRecognizer){
         let location = tap.location(in: tableView)
         if let tapIndexPath = tableView.indexPathForRow(at: location){

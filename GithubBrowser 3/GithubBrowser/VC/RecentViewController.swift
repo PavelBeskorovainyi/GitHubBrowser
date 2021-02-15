@@ -60,7 +60,6 @@ class RecentViewController: UIViewController {
                  navigationController?.pushViewController(vc, animated: true)
         }
     }
-
 }
 
 
@@ -76,7 +75,6 @@ extension RecentViewController: UITableViewDelegate, UITableViewDataSource {
             cell.addFavoritesButton.tag = indexPath.row
             cell.addFavoritesButton.addTarget(self, action: #selector(addFavoritesButtonPressed(_:)), for: .touchUpInside)
             cell.avatarImageView.tag = indexPath.row
-            
             
             return cell
         }

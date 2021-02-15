@@ -58,6 +58,15 @@ class RepositoryObject: Codable {
         realm.add(realmObject, update: .all)
     })
   }
+    func deleteObject(){
+        let realm = try! Realm()
+        let realmObject = RealmRepositoryObject(from: self)
+        try! realm.write({
+            realm.add(realmObject, update: .all)
+            realm.delete(realmObject)
+        })
+    }
+
   
   static func performRequest(with requestType: RequestType = .getAll, completion: @escaping (_ isSuccess: Bool, _ response: [RepositoryObject]) -> ()) {
     var repStringURL = ""

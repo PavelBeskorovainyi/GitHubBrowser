@@ -13,6 +13,7 @@ class FeaturedViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     private var repositoryDataSourse = [RepositoryObject]()
+    private var selectedIndex: IndexPath?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,6 +39,13 @@ class FeaturedViewController: UIViewController {
       self.tableView.reloadData()
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let vc = segue.destination as? DetailViewController, let selectedIndex = selectedIndex,
+           self.repositoryDataSourse.indices.contains(selectedIndex.row) {
+            vc.repositoryModel = self.repositoryDataSourse[selectedIndex.row]
+        }
+    }
+    
 }
 
 extension FeaturedViewController: UITableViewDelegate, UITableViewDataSource {
@@ -51,6 +59,12 @@ extension FeaturedViewController: UITableViewDelegate, UITableViewDataSource {
             return cell
         }
         return UITableViewCell()
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        self.selectedIndex = indexPath
+        self.performSegue(withIdentifier: "showDetail", sender: self)
     }
     
     @objc public func presentImage(_ tap: UITapGestureRecognizer){

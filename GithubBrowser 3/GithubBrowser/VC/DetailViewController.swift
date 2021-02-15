@@ -71,9 +71,20 @@ class DetailViewController: UIViewController {
         }
         
         @objc private func addToFavorites() {
-            if let repositoryModel = repositoryModel {
-                Notification.Name.created.post(center: NotificationCenter.default, object: nil, userInfo: ["repositoryModel":repositoryModel])
+            let alertController = UIAlertController(title: "ADD LINK TO FEATURE?", message: "", preferredStyle: .alert)
+            let action1 = UIAlertAction(title: "Confirm", style: .default) { [weak self] _ in
+                guard let self = self else {return}
+                if let repositoryModel = self.repositoryModel, self.repositoryModel != nil {
+                    repositoryModel.putObjectToRealm()
+                }
             }
+            let action2 = UIAlertAction(title: "Cancel", style: .destructive ){_ in
+                alertController.dismiss(animated: true)
+            }
+            alertController.addAction(action1)
+            alertController.addAction(action2)
+            self.present(alertController, animated: true)
+           
         }
         
         @objc private func openSafari() {

@@ -17,7 +17,6 @@ class RecentViewController: UIViewController {
     private var selectedIndex: IndexPath?
     private var selectedImageIndex: IndexPath?
     private var repositoryDataSourse = [RepositoryObject]()
-    private var tapGesture = UITapGestureRecognizer(target: self, action: #selector(showImage))
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,7 +27,7 @@ class RecentViewController: UIViewController {
         refreshControl = UIRefreshControl()
         refreshControl?.addTarget(self, action: #selector(getAllData), for: .valueChanged)
         tableView.refreshControl = self.refreshControl
-        
+
         refreshControl?.beginRefreshing()
         getAllData()
         
@@ -83,6 +82,7 @@ extension RecentViewController: UITableViewDelegate, UITableViewDataSource {
         }
         return UITableViewCell()
     }
+
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
@@ -92,24 +92,6 @@ extension RecentViewController: UITableViewDelegate, UITableViewDataSource {
         tableView.deselectRow(at: indexPath, animated: true)
         self.selectedIndex = indexPath
         self.performSegue(withIdentifier: "showDetail", sender: self)
-    }
-    
-    //    func imageTapped(_ gesture: UITapGestureRecognizer){
-    //        let tapLocation = gesture.location(in: self.tableView)
-    //        if let tapIndexPath = self.tableView.indexPathForRow(at: tapLocation) {
-    //        if let tappedCell = self.tableView.cellForRow(at: tapIndexPath) as? RepositoryTableViewCell {
-    //            let touchpoint:CGPoint = gesture.location(in: tappedCell)
-    //            if tappedCell.avatarImageView.frame.contains(touchpoint) {
-    //                print("YRA")
-    //            }
-    //        }
-    //    }
-    //    }
-    
-    
-    @objc func showImage () {
-        let vc = AvatarImageViewController.createFromStoryboard()
-        self.present(vc, animated: true)
     }
     
     @objc private func addFavoritesButtonPressed(_ sender: UIButton?) {

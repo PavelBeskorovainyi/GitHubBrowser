@@ -111,6 +111,7 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        self.searchBar.resignFirstResponder()
         self.selectedIndex = indexPath
         self.performSegue(withIdentifier: "showDetail", sender: self)
     }
@@ -159,12 +160,11 @@ extension SearchViewController: UISearchBarDelegate {
                 self.arrowImage.isHidden = false
             }
         }
-        
-        func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-                
-            }
-        }
     }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+    }
+ 
 }
+

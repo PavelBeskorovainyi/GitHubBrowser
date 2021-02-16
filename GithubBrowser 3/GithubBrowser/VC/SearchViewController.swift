@@ -69,7 +69,7 @@ class SearchViewController: UIViewController {
                             self.activityIndicator.stopAnimating()
                             self.noResultImageView.isHidden = false
                             self.tableView.isHidden = true
-                            self.arrowImage.isHidden = false
+                            self.arrowImage.isHidden = true
                         }
                     } else {
                         self.repositoryDataSourse = response
@@ -83,7 +83,7 @@ class SearchViewController: UIViewController {
                         }
                     }
                 } else {
-                        self.repositoryDataSourse.removeAll()
+                    self.repositoryDataSourse.removeAll()
                     DispatchQueue.main.async {
                         self.activityIndicator.isHidden = true
                         self.activityIndicator.stopAnimating()
@@ -92,9 +92,9 @@ class SearchViewController: UIViewController {
                         self.arrowImage.isHidden = true
                     }
                 }
-                }
             }
         }
+    }
     
     @objc public func presentImage(_ tap: UITapGestureRecognizer){
         let location = tap.location(in: tableView)
@@ -151,34 +151,39 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
 
 extension SearchViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if let searchText = searchText.applyingTransform(.toLatin, reverse: false) {
-            if searchText.count >= 1 {
-                DispatchQueue.main.async {
-                    self.activityIndicator.isHidden = false
-                    self.activityIndicator.startAnimating()
-                    self.tableView.isHidden = true
-                    self.arrowImage.isHidden = true
+        let badLetters = ["ш", "щ", "ж", "я", "ч", "ь", "э", "ю", "ё", "ъ"]
+        for ch in badLetters {
+            if !searchText.lowercased().contains(ch) {
+                if searchText.count >= 1 {
+                    DispatchQueue.main.async {
+                        self.activityIndicator.isHidden = false
+                        self.activityIndicator.startAnimating()
+                        self.tableView.isHidden = true
+                        self.arrowImage.isHidden = true
+                    }
+                    self.searchTimer?.invalidate()
+                    self.searchTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { [weak self] (_) in
+                        self?.getAllData(with: searchText.lowercased())
+                    })
+                } else {
+                    self.searchTimer?.invalidate()
+                    self.repositoryDataSourse.removeAll()
+                    DispatchQueue.main.async {
+                        self.activityIndicator.isHidden = true
+                        self.activityIndicator.stopAnimating()
+                        self.tableView.isHidden = true
+                        self.arrowImage.isHidden = false
+                        self.noResultImageView.isHidden = true
+                    }
                 }
-                self.searchTimer?.invalidate()
-                self.searchTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { [weak self] (_) in
-                    self?.getAllData(with: searchText.lowercased())
-                })
             } else {
-                self.searchTimer?.invalidate()
                 self.repositoryDataSourse.removeAll()
-                DispatchQueue.main.async {
-                    self.activityIndicator.isHidden = true
-                    self.activityIndicator.stopAnimating()
-                    self.tableView.isHidden = true
-                    self.arrowImage.isHidden = false
-                }
+                self.getAllData(with: "")
             }
         }
     }
-    
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        searchBar.resignFirstResponder()
+        func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+            searchBar.resignFirstResponder()
+        }
     }
-    
-}
 

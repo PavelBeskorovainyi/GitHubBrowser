@@ -47,6 +47,7 @@ class SearchViewController: UIViewController {
         self.arrowImage.isHidden = false
         self.tableView.isHidden = true
         
+        registerKeyboardNotifications ()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -55,8 +56,9 @@ class SearchViewController: UIViewController {
             vc.repositoryModel = self.repositoryDataSourse[selectedIndex.row]
         }
     }
-    
-    
+    deinit {
+        removeKeyboardNotifications()
+    }
     private func getAllData(with text: String) {
         if let text = text.applyingTransform(.toLatin, reverse: false) {
             RepositoryObject.performRequest(with: .getSearchResult(searhText: text)) { [weak self] (isSuccess, response) in
@@ -105,7 +107,36 @@ class SearchViewController: UIViewController {
         }
     }
 }
+//MARK:- Keyboard appereance
+extension SearchViewController {
+    private func registerKeyboardNotifications () {
+        NotificationCenter.default.addObserver(self, selector: #selector(SearchViewController.keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(SearchViewController.keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        
+    }
+  @objc private func keyboardWillShow (_ notification: Notification) {
+        let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue
+        let keyboardHeight = keyboardFrame.cgRectValue.height
+//        tableView.contentOffset = CGPoint(x: 0, y: keyboardHeight + self.additionalSafeAreaInsets.bottom + (self.tabBarController?.accessibilityFrame.height ?? CGFloat(0)))
+//      tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: keyboardHeight).isActive = true
+//    tableView.scrollRectToVisible(CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height - keyboardHeight), animated: true)
+    tableView.scrollRectToVisible(CGRect(origin: CGPoint(x: self.tableView.frame.minX, y: self.tableView.frame.minY - keyboardHeight) ,
+                                         size: self.tableView.frame.size), animated: true)
+        arrowImage.isHidden = true
+        tableView.isHidden = false
+        self.searchBar.becomeFirstResponder()
+    }
+    @objc private func keyboardWillHide(_ notification: Notification) {
+        self.searchBar.resignFirstResponder()
+    }
+    
+    private func removeKeyboardNotifications () {
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+    }
+}
 
+//MARK: - table view etxension
 extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return repositoryDataSourse.count
@@ -131,6 +162,7 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         self.searchBar.resignFirstResponder()
     }
+
     
     @objc private func addFavoritesButtonPressed(_ sender: UIButton?) {
         let alertController = UIAlertController(title: "ADD LINK TO FEATURE?", message: "", preferredStyle: .alert)
@@ -148,7 +180,7 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
         self.present(alertController, animated: true)
     }
 }
-
+//MARK: - searchbar extension
 extension SearchViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         let badLetters = ["ш", "щ", "ж", "я", "ч", "ь", "э", "ю", "ё", "ъ"]
@@ -182,8 +214,12 @@ extension SearchViewController: UISearchBarDelegate {
             }
         }
     }
-        func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-            searchBar.resignFirstResponder()
-        }
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
     }
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchBar.becomeFirstResponder()
+    }
+    
+}
 

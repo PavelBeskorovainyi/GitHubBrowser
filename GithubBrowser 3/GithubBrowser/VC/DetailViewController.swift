@@ -12,7 +12,7 @@ import SafariServices
 class DetailViewController: UIViewController {
     
     @IBOutlet weak var readmeTextVIew: UITextView!
-    
+    public var featuredParent: Bool?
     public var repositoryModel: RepositoryObject?
     
     var readmeUrlVariants: [String] {
@@ -33,12 +33,15 @@ class DetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.title = repositoryModel?.fullName
+        self.readmeTextVIew.isSelectable = false
         let addFavoritesButton = UIBarButtonItem(image: UIImage(systemName: "plus") , style: UIBarButtonItem.Style.done, target: self, action: #selector(addToFavorites))
         let openSafariButton = UIBarButtonItem(title: "Safari", style: .done, target: self, action: #selector(openSafari))
-        
-        self.navigationItem.rightBarButtonItems = [addFavoritesButton, openSafariButton]
+        if featuredParent == true {
+            self.navigationItem.rightBarButtonItem = openSafariButton
+        } else {
+            self.navigationItem.rightBarButtonItems = [addFavoritesButton, openSafariButton]
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -84,7 +87,6 @@ class DetailViewController: UIViewController {
             alertController.addAction(action1)
             alertController.addAction(action2)
             self.present(alertController, animated: true)
-           
         }
         
         @objc private func openSafari() {

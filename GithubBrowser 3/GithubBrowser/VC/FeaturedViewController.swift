@@ -54,6 +54,7 @@ class FeaturedViewController: UIViewController {
         if let vc = segue.destination as? DetailViewController, let selectedIndex = selectedIndex,
            self.repositoryDataSourse.indices.contains(selectedIndex.row) {
             vc.repositoryModel = self.repositoryDataSourse[selectedIndex.row]
+            vc.featuredParent = true
         }
     }
     

@@ -33,6 +33,7 @@ class RepositoryTableViewCell: UITableViewCell {
         
         self.descriptionTextView.sizeToFit()
         self.descriptionTextView.isScrollEnabled = false
+        self.descriptionTextView.backgroundColor = .clear
         
         if windowType != .search {
             repositoryName.attributedText = NSAttributedString(string: model.fullName)

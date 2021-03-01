@@ -81,7 +81,6 @@ class RepositoryObject: Codable {
         completion(false, result)
         return
       }
-      
       do {
         switch requestType {
         case .getAll: result = try JSONDecoder().decode([RepositoryObject].self, from: data!)

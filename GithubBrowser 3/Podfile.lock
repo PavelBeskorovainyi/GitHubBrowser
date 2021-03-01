@@ -1,14 +1,14 @@
 PODS:
   - Down (0.9.5)
-  - Kingfisher (6.1.0)
+  - Kingfisher (6.1.1)
   - NVActivityIndicatorView (5.1.1):
     - NVActivityIndicatorView/Base (= 5.1.1)
   - NVActivityIndicatorView/Base (5.1.1)
-  - Realm (10.5.2):
-    - Realm/Headers (= 10.5.2)
-  - Realm/Headers (10.5.2)
-  - RealmSwift (10.5.2):
-    - Realm (= 10.5.2)
+  - Realm (10.7.0):
+    - Realm/Headers (= 10.7.0)
+  - Realm/Headers (10.7.0)
+  - RealmSwift (10.7.0):
+    - Realm (= 10.7.0)
 
 DEPENDENCIES:
   - Down
@@ -26,10 +26,10 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Down: 7321a72d0747ed0061dce948bcff518fcb6df2bd
-  Kingfisher: f5d8d60a0ef3edd642fd781bae60918599901aff
+  Kingfisher: 676d63307fbef6ed5d5ed400bff36983480d7500
   NVActivityIndicatorView: 1f6c5687f1171810aa27a3296814dc2d7dec3667
-  Realm: 2e1bc0d28301006176692da234deff51f867d5ae
-  RealmSwift: a522ad39715e8b4e491af4460059bc32b84f5a9b
+  Realm: a03c41a3afbda6c197ba4dfba5428b8b54cc2df4
+  RealmSwift: 5e7abc842276d7fabd386e67afbf3efde54eb1c6
 
 PODFILE CHECKSUM: ce38d597086e518bc50ff8db7c931912264d3ea5
 

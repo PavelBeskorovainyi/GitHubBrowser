@@ -58,42 +58,6 @@ class RepositoryObject: Codable {
         realm.add(realmObject, update: .all)
     })
   }
-  
-  static func performRequest(with requestType: RequestType = .getAll, completion: @escaping (_ isSuccess: Bool, _ response: [RepositoryObject]) -> ()) {
-    var repStringURL = ""
-    switch requestType {
-    case .getAll: repStringURL = "https://api.github.com/repositories?since=1&per_page=100"
-    case .getSearchResult(let searhText): repStringURL = "https://api.github.com/search/repositories?q=\(searhText)&page=1&per_page=100"
-    }
-    
-    guard let repURL = URL(string: repStringURL) else {return}
-    
-    URLSession.shared.dataTask(with: repURL) { (data, response, error) in
-      var result = [RepositoryObject]()
-      guard data != nil else {
-        print("NO DATA")
-        completion(false, result)
-        return
-      }
-            
-      guard error == nil else {
-        print(error!.localizedDescription)
-        completion(false, result)
-        return
-      }
-      do {
-        switch requestType {
-        case .getAll: result = try JSONDecoder().decode([RepositoryObject].self, from: data!)
-        case .getSearchResult(_): result = try JSONDecoder().decode(SearchResults.self, from: data!).items
-        }
-        print(result.count)
-        completion(true, result)
-      } catch {
-        print(error.localizedDescription)
-        completion(false, result)
-      }
-    }.resume()
-  }
 }
 
 struct Owner: Codable {

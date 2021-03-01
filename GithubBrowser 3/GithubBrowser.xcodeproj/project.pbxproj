@@ -173,8 +173,8 @@
 		91C1DB0B25BB3C7900908B5B /* GithubBrowser */ = {
 			isa = PBXGroup;
 			children = (
-				6D32A13625ED268E00E7FE62 /* Network */,
 				91C1DB1A25BB3C7C00908B5B /* Info.plist */,
+				6D32A13625ED268E00E7FE62 /* Network */,
 				6D32A13125ED259700E7FE62 /* Avatar */,
 				6D32A13025ED255800E7FE62 /* Detail ReadMe */,
 				6D32A13225ED25D000E7FE62 /* Main */,

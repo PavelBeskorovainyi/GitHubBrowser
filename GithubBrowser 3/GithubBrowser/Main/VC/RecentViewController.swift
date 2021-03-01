@@ -7,6 +7,7 @@
 
 import UIKit
 import Kingfisher
+import PromiseKit
 
 class RecentViewController: UIViewController {
     
@@ -18,6 +19,7 @@ class RecentViewController: UIViewController {
     private var selectedImageIndex: IndexPath?
     private var repositoryDataSourse = [RepositoryObject]()
     private var tapGesture = UITapGestureRecognizer(target: self, action: #selector(showImage))
+    private var currentPage = 1
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,11 +28,11 @@ class RecentViewController: UIViewController {
         tableView.estimatedRowHeight = 70
         
         refreshControl = UIRefreshControl()
-        refreshControl?.addTarget(self, action: #selector(getAllData), for: .valueChanged)
+//        refreshControl?.addTarget(self, action: #selector(getGitData(page:)), for: .valueChanged)
         tableView.refreshControl = self.refreshControl
         
         refreshControl?.beginRefreshing()
-        getAllData()
+        getGitData(page: currentPage)
         
     }
     
@@ -41,18 +43,22 @@ class RecentViewController: UIViewController {
         }
     }
     
-    @objc private func getAllData() {
-        RepositoryObject.performRequest(with: .getAll) { [weak self] (isSuccess, response) in
+    @objc private func getGitData(page: Int) {
+        firstly {
+            Provider.getDataFromServerWithParameters(page: page)
+        } .done {
+            [weak self] (response) in
             guard let self = self else {return}
-            if isSuccess {
-                self.repositoryDataSourse = response
+            if response.count != 0 {
+            self.repositoryDataSourse.append(contentsOf: response)
+            self.refreshControl?.endRefreshing()
+            self.tableView.reloadData()
             }
-            DispatchQueue.main.async {
-                self.refreshControl?.endRefreshing()
-                if isSuccess { self.tableView.reloadData() }
-            }
+        } .catch { (error) in
+            debugPrint(error.localizedDescription)
         }
     }
+    
     @objc public func presentImage(_ tap: UITapGestureRecognizer){
         let location = tap.location(in: tableView)
         if let tapIndexPath = tableView.indexPathForRow(at: location){
@@ -92,6 +98,14 @@ extension RecentViewController: UITableViewDelegate, UITableViewDataSource {
         tableView.deselectRow(at: indexPath, animated: true)
         self.selectedIndex = indexPath
         self.performSegue(withIdentifier: "showDetail", sender: self)
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if indexPath.row + 1 == (75 * currentPage) {
+            self.refreshControl?.beginRefreshing()
+            self.currentPage += 1
+            self.getGitData(page: currentPage)
+        }
     }
     
     @objc func showImage () {

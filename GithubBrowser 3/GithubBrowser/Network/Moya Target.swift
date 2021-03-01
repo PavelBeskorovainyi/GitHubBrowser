@@ -37,7 +37,7 @@ extension RequestTarget: TargetType {
         var parameters = [String:Any]()
         switch self {
         case .requestWithParameters(let page, let searchText):
-            parameters["per_page"] = 50
+            parameters["per_page"] = 100
             parameters["since"] = page
             if searchText != nil {
                 parameters["q"] = searchText

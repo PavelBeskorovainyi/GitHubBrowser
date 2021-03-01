@@ -7,6 +7,7 @@
 
 import UIKit
 import NVActivityIndicatorView
+import PromiseKit
 
 class SearchViewController: UIViewController {
     
@@ -19,6 +20,8 @@ class SearchViewController: UIViewController {
     private var searchTimer: Timer?
     private var selectedIndex: IndexPath?
     private var arrowImage = UIImageView(image: UIImage(named: "arrow"))
+    private var currentPage = 1
+    private var searchedText: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,33 +60,30 @@ class SearchViewController: UIViewController {
     }
     
     
-    private func getAllData(with text: String) {
-        RepositoryObject.performRequest(with: .getSearchResult(searhText: text)) { [weak self] (isSuccess, response) in
+    private func getAllData(with text: String, page: Int) {
+        firstly {
+            Provider.getDataFromServerWithParameters(page: page, searchText: text)
+        } .done {
+            [weak self] (response) in
             guard let self = self else {return}
-            
-            if isSuccess {
-                if response.count == 0 {
-                    DispatchQueue.main.async {
-                        self.activityIndicator.isHidden = true
-                        self.activityIndicator.stopAnimating()
-                        self.noResultImageView.isHidden = false
-                        self.tableView.isHidden = true
-                        self.arrowImage.isHidden = false
-                    }
-                } else {
-                    self.repositoryDataSourse = response
-                    DispatchQueue.main.async {
-                        self.activityIndicator.isHidden = true
-                        self.activityIndicator.stopAnimating()
-                        self.noResultImageView.isHidden = true
-                        self.tableView.isHidden = false
-                        self.tableView.reloadData()
-                        self.arrowImage.isHidden = true
-                    }
-                }
+            if response.count == 0 {
+                self.noResultImageView.isHidden = false
+                self.tableView.isHidden = true
+            } else {
+                self.repositoryDataSourse.append(contentsOf: response)
+                self.noResultImageView.isHidden = true
+                self.tableView.isHidden = false
             }
+            self.arrowImage.isHidden = true
+            self.tableView.reloadData()
+            self.activityIndicator.stopAnimating()
+            self.activityIndicator.isHidden = true
+        } .catch { (error) in
+            debugPrint(error.localizedDescription)
         }
+        
     }
+    
     @objc public func presentImage(_ tap: UITapGestureRecognizer){
         let location = tap.location(in: tableView)
         if let tapIndexPath = tableView.indexPathForRow(at: location){
@@ -93,7 +93,7 @@ class SearchViewController: UIViewController {
         }
     }
 }
-
+// MARK: - Table View
 extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return repositoryDataSourse.count
@@ -113,6 +113,15 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
         tableView.deselectRow(at: indexPath, animated: true)
         self.selectedIndex = indexPath
         self.performSegue(withIdentifier: "showDetail", sender: self)
+    }
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if indexPath.row + 1 == (100 * self.currentPage) {
+            self.activityIndicator.isHidden = false
+            self.activityIndicator.startAnimating()
+            self.tableView.isHidden = true
+            currentPage += 1
+            self.getAllData(with: searchedText, page: currentPage)
+        }
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -135,9 +144,11 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
         self.present(alertController, animated: true)
     }
 }
-
+//MARK: - Search Bar
 extension SearchViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        self.searchedText = searchText
+        self.repositoryDataSourse.removeAll()
         if searchText.count >= 1 {
             DispatchQueue.main.async {
                 self.activityIndicator.isHidden = false
@@ -147,7 +158,8 @@ extension SearchViewController: UISearchBarDelegate {
             }
             self.searchTimer?.invalidate()
             self.searchTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { [weak self] (_) in
-                self?.getAllData(with: searchText.lowercased())
+                guard let self = self else {return}
+                self.getAllData(with: self.searchedText, page: 1)
             })
         } else {
             self.searchTimer?.invalidate()

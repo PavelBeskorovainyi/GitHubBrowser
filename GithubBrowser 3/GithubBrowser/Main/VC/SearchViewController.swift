@@ -159,12 +159,15 @@ extension SearchViewController: UISearchBarDelegate {
                 self.arrowImage.isHidden = false
             }
         }
-        
-        func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-                
-            }
+    }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
         }
     }
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+    }
 }
+

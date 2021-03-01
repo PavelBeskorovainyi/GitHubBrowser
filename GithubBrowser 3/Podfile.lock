@@ -1,9 +1,23 @@
 PODS:
-  - Down (0.9.5)
+  - Alamofire (5.4.1)
+  - Down (0.10.0)
   - Kingfisher (6.1.1)
+  - Moya (14.0.0):
+    - Moya/Core (= 14.0.0)
+  - Moya/Core (14.0.0):
+    - Alamofire (~> 5.0)
   - NVActivityIndicatorView (5.1.1):
     - NVActivityIndicatorView/Base (= 5.1.1)
   - NVActivityIndicatorView/Base (5.1.1)
+  - PromiseKit (6.13.1):
+    - PromiseKit/CorePromise (= 6.13.1)
+    - PromiseKit/Foundation (= 6.13.1)
+    - PromiseKit/UIKit (= 6.13.1)
+  - PromiseKit/CorePromise (6.13.1)
+  - PromiseKit/Foundation (6.13.1):
+    - PromiseKit/CorePromise
+  - PromiseKit/UIKit (6.13.1):
+    - PromiseKit/CorePromise
   - Realm (10.7.0):
     - Realm/Headers (= 10.7.0)
   - Realm/Headers (10.7.0)
@@ -13,24 +27,32 @@ PODS:
 DEPENDENCIES:
   - Down
   - Kingfisher (~> 6.0)
+  - Moya (~> 14.0)
   - NVActivityIndicatorView
+  - PromiseKit (~> 6.8)
   - RealmSwift
 
 SPEC REPOS:
   trunk:
+    - Alamofire
     - Down
     - Kingfisher
+    - Moya
     - NVActivityIndicatorView
+    - PromiseKit
     - Realm
     - RealmSwift
 
 SPEC CHECKSUMS:
-  Down: 7321a72d0747ed0061dce948bcff518fcb6df2bd
+  Alamofire: 2291f7d21ca607c491dd17642e5d40fdcda0e65c
+  Down: 01f155f9d7e99673c667efd2218709c3b9a8bc13
   Kingfisher: 676d63307fbef6ed5d5ed400bff36983480d7500
+  Moya: 5b45dacb75adb009f97fde91c204c1e565d31916
   NVActivityIndicatorView: 1f6c5687f1171810aa27a3296814dc2d7dec3667
+  PromiseKit: 28fda91c973cc377875d8c0ea4f973013c05b6db
   Realm: a03c41a3afbda6c197ba4dfba5428b8b54cc2df4
   RealmSwift: 5e7abc842276d7fabd386e67afbf3efde54eb1c6
 
-PODFILE CHECKSUM: ce38d597086e518bc50ff8db7c931912264d3ea5
+PODFILE CHECKSUM: 6541292092f5d19d414413fd78317476996ef0f9
 
 COCOAPODS: 1.10.1

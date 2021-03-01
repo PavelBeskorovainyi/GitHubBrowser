@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6D32A13825ED279600E7FE62 /* Moya Target.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D32A13725ED279600E7FE62 /* Moya Target.swift */; };
+		6D32A14E25ED2C8D00E7FE62 /* Moya Adapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D32A14D25ED2C8D00E7FE62 /* Moya Adapter.swift */; };
 		916274BA25C19BEB007A0291 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916274B925C19BEB007A0291 /* String+Extension.swift */; };
 		9166680D25BF3DEA001BEA0F /* Detail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9166680C25BF3DEA001BEA0F /* Detail.storyboard */; };
 		9166681025BF3E19001BEA0F /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9166680F25BF3E19001BEA0F /* DetailViewController.swift */; };
@@ -27,11 +29,12 @@
 		D00B537825D5633B00F4FEF5 /* ImageScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00B537725D5633B00F4FEF5 /* ImageScrollView.swift */; };
 		D00B537C25D5996A00F4FEF5 /* Avatar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D00B537B25D5996A00F4FEF5 /* Avatar.storyboard */; };
 		D00B537F25D599F900F4FEF5 /* StoryboardInit.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00B537E25D599F900F4FEF5 /* StoryboardInit.swift */; };
-		D06859A725D4900900D429AD /* Паша.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06859A625D4900900D429AD /* Паша.swift */; };
 		EBE6BB4D13122170BE6C426B /* Pods_GithubBrowser.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7906C7DBC8F3402CB95C787C /* Pods_GithubBrowser.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6D32A13725ED279600E7FE62 /* Moya Target.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Moya Target.swift"; sourceTree = "<group>"; };
+		6D32A14D25ED2C8D00E7FE62 /* Moya Adapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Moya Adapter.swift"; sourceTree = "<group>"; };
 		7906C7DBC8F3402CB95C787C /* Pods_GithubBrowser.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GithubBrowser.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		916274B925C19BEB007A0291 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		9166680C25BF3DEA001BEA0F /* Detail.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Detail.storyboard; sourceTree = "<group>"; };
@@ -56,7 +59,6 @@
 		D00B537725D5633B00F4FEF5 /* ImageScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageScrollView.swift; sourceTree = "<group>"; };
 		D00B537B25D5996A00F4FEF5 /* Avatar.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Avatar.storyboard; sourceTree = "<group>"; };
 		D00B537E25D599F900F4FEF5 /* StoryboardInit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryboardInit.swift; sourceTree = "<group>"; };
-		D06859A625D4900900D429AD /* Паша.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Паша.swift"; sourceTree = "<group>"; };
 		E2A440A2A9D3F9DC37FB300A /* Pods-GithubBrowser.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GithubBrowser.release.xcconfig"; path = "Target Support Files/Pods-GithubBrowser/Pods-GithubBrowser.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -89,6 +91,67 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		6D32A12F25ED252200E7FE62 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				91C1DB1725BB3C7C00908B5B /* LaunchScreen.storyboard */,
+				91C1DB1525BB3C7C00908B5B /* Assets.xcassets */,
+				91C1DB0E25BB3C7900908B5B /* SceneDelegate.swift */,
+				91C1DB0C25BB3C7900908B5B /* AppDelegate.swift */,
+			);
+			path = "Support Files";
+			sourceTree = "<group>";
+		};
+		6D32A13025ED255800E7FE62 /* Detail ReadMe */ = {
+			isa = PBXGroup;
+			children = (
+				9166680C25BF3DEA001BEA0F /* Detail.storyboard */,
+				9166680F25BF3E19001BEA0F /* DetailViewController.swift */,
+			);
+			path = "Detail ReadMe";
+			sourceTree = "<group>";
+		};
+		6D32A13125ED259700E7FE62 /* Avatar */ = {
+			isa = PBXGroup;
+			children = (
+				D00B537425D55C6D00F4FEF5 /* AvatarImageViewController.swift */,
+				D00B537B25D5996A00F4FEF5 /* Avatar.storyboard */,
+				D00B537725D5633B00F4FEF5 /* ImageScrollView.swift */,
+			);
+			path = Avatar;
+			sourceTree = "<group>";
+		};
+		6D32A13225ED25D000E7FE62 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				91DC650425BF384B00F365C8 /* Views */,
+				91DC650325BF383A00F365C8 /* VC */,
+				91C1DB1225BB3C7900908B5B /* Main.storyboard */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		6D32A13425ED264F00E7FE62 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				D00B537E25D599F900F4FEF5 /* StoryboardInit.swift */,
+				916274B925C19BEB007A0291 /* String+Extension.swift */,
+				D00B536D25D5425E00F4FEF5 /* Notification & Example.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		6D32A13625ED268E00E7FE62 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				D00B537125D54E1800F4FEF5 /* RealmRepositoryObject.swift */,
+				91C1DB2125BB3CA100908B5B /* RepositoryObject.swift */,
+				6D32A13725ED279600E7FE62 /* Moya Target.swift */,
+				6D32A14D25ED2C8D00E7FE62 /* Moya Adapter.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
 		91C1DB0025BB3C7900908B5B = {
 			isa = PBXGroup;
 			children = (
@@ -110,23 +173,13 @@
 		91C1DB0B25BB3C7900908B5B /* GithubBrowser */ = {
 			isa = PBXGroup;
 			children = (
-				D06859A625D4900900D429AD /* Паша.swift */,
-				91C1DB0C25BB3C7900908B5B /* AppDelegate.swift */,
-				91C1DB0E25BB3C7900908B5B /* SceneDelegate.swift */,
-				D00B537B25D5996A00F4FEF5 /* Avatar.storyboard */,
-				9166680C25BF3DEA001BEA0F /* Detail.storyboard */,
-				91C1DB1225BB3C7900908B5B /* Main.storyboard */,
-				D00B536D25D5425E00F4FEF5 /* Notification & Example.swift */,
-				916274B925C19BEB007A0291 /* String+Extension.swift */,
-				D00B537725D5633B00F4FEF5 /* ImageScrollView.swift */,
-				D00B537E25D599F900F4FEF5 /* StoryboardInit.swift */,
-				91DC650425BF384B00F365C8 /* Views */,
-				91DC650325BF383A00F365C8 /* VC */,
-				91C1DB1525BB3C7C00908B5B /* Assets.xcassets */,
-				91C1DB1725BB3C7C00908B5B /* LaunchScreen.storyboard */,
+				6D32A13625ED268E00E7FE62 /* Network */,
 				91C1DB1A25BB3C7C00908B5B /* Info.plist */,
-				91C1DB2125BB3CA100908B5B /* RepositoryObject.swift */,
-				D00B537125D54E1800F4FEF5 /* RealmRepositoryObject.swift */,
+				6D32A13125ED259700E7FE62 /* Avatar */,
+				6D32A13025ED255800E7FE62 /* Detail ReadMe */,
+				6D32A13225ED25D000E7FE62 /* Main */,
+				6D32A13425ED264F00E7FE62 /* Extensions */,
+				6D32A12F25ED252200E7FE62 /* Support Files */,
 			);
 			path = GithubBrowser;
 			sourceTree = "<group>";
@@ -137,8 +190,6 @@
 				91C1DB1025BB3C7900908B5B /* RecentViewController.swift */,
 				9182D7B425BF1E5D00C0D0C9 /* SearchViewController.swift */,
 				9182D7B725BF1F1A00C0D0C9 /* FeaturedViewController.swift */,
-				9166680F25BF3E19001BEA0F /* DetailViewController.swift */,
-				D00B537425D55C6D00F4FEF5 /* AvatarImageViewController.swift */,
 			);
 			path = VC;
 			sourceTree = "<group>";
@@ -270,8 +321,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				9182D7B525BF1E5D00C0D0C9 /* SearchViewController.swift in Sources */,
+				6D32A13825ED279600E7FE62 /* Moya Target.swift in Sources */,
 				D00B537825D5633B00F4FEF5 /* ImageScrollView.swift in Sources */,
 				D00B537F25D599F900F4FEF5 /* StoryboardInit.swift in Sources */,
+				6D32A14E25ED2C8D00E7FE62 /* Moya Adapter.swift in Sources */,
 				916274BA25C19BEB007A0291 /* String+Extension.swift in Sources */,
 				91C1DB2225BB3CA100908B5B /* RepositoryObject.swift in Sources */,
 				9182D7BC25BF21EE00C0D0C9 /* RepositoryTableViewCell.swift in Sources */,
@@ -279,7 +332,6 @@
 				91C1DB0D25BB3C7900908B5B /* AppDelegate.swift in Sources */,
 				9182D7B825BF1F1A00C0D0C9 /* FeaturedViewController.swift in Sources */,
 				91C1DB0F25BB3C7900908B5B /* SceneDelegate.swift in Sources */,
-				D06859A725D4900900D429AD /* Паша.swift in Sources */,
 				D00B536E25D5425E00F4FEF5 /* Notification & Example.swift in Sources */,
 				D00B537225D54E1800F4FEF5 /* RealmRepositoryObject.swift in Sources */,
 				D00B537525D55C6D00F4FEF5 /* AvatarImageViewController.swift in Sources */,

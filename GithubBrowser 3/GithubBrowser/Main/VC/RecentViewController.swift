@@ -94,19 +94,6 @@ extension RecentViewController: UITableViewDelegate, UITableViewDataSource {
         self.performSegue(withIdentifier: "showDetail", sender: self)
     }
     
-    //    func imageTapped(_ gesture: UITapGestureRecognizer){
-    //        let tapLocation = gesture.location(in: self.tableView)
-    //        if let tapIndexPath = self.tableView.indexPathForRow(at: tapLocation) {
-    //        if let tappedCell = self.tableView.cellForRow(at: tapIndexPath) as? RepositoryTableViewCell {
-    //            let touchpoint:CGPoint = gesture.location(in: tappedCell)
-    //            if tappedCell.avatarImageView.frame.contains(touchpoint) {
-    //                print("YRA")
-    //            }
-    //        }
-    //    }
-    //    }
-    
-    
     @objc func showImage () {
         let vc = AvatarImageViewController.createFromStoryboard()
         self.present(vc, animated: true)
